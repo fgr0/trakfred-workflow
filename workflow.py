@@ -11,7 +11,7 @@
 import alfred
 import trakt
 import plistlib
-import os
+import os, sys
 
 def save_key(key):
     """
@@ -30,12 +30,20 @@ def read_key():
     """
     Reads the API Key from plist
     """
-    file = open(alfred.work(False) + '/config.plist', 'r')
-    pl = plistlib.readPlist(file)
-    if 'apikey' in pl:
-        return pl['apikey']
-    else:
-        return 0
+    if os.path.isfile(alfred.work(False) + '/config.plist'):
+        file = open(alfred.work(False) + '/config.plist', 'r')
+        pl = plistlib.readPlist(file)
+        if 'apikey' in pl:
+            return pl['apikey']
+    print(alfred.xml([alfred.Item(
+        attributes={
+            'uid': 'error',
+            'arg': 'error',
+            'valid': 'no'},
+        title="No Trakt API-Key Provided",
+        subtitle="Please add a Trakt API-Key with `trakt apikey key`",
+        icon='icon.png')]))
+    sys.exit()
 
 def parse_movie(movie):
     if 'imdb_id' in movie:
