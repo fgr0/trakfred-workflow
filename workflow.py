@@ -1,3 +1,5 @@
+# Trakt API Kit
+
 # -----------------------------------------------------------------------------
 # "THE NERD-WARE LICENSE" (Revision 1): <dev.git@lc3dyr.de> wrote this file.
 # As long as you retain this notice you can do whatever you want with this
@@ -5,7 +7,6 @@
 # me a beer, mate or some food in return [Franz Greiling]
 # -----------------------------------------------------------------------------
 
-# Trakt API Kit
 # by laerador (Franz Greiling)
 
 import alfred
@@ -22,9 +23,12 @@ def save_key(key):
     if 'status' in save and save['status'] == "failure":
         return save['error']
     else:
-        file = open(alfred.work(False) + '/config.plist', 'w')
-        plistlib.writePlist({'apikey': key}, file)
+        write_config({'apikey': key})
         return "Succesfully saved Key."
+
+def write_config(dic={}):
+    file = open(alfred.work(False) + '/config.plist', 'w')
+    plistlib.writePlist(dic, file)
 
 def read_key():
     """
