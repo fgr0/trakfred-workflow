@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>de.devignore.trakfred</string>
+	<key>connections</key>
+	<dict>
+		<key>17792379-6334-4A90-BBD0-A412D3F7FF7F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F6D6D079-FA78-4F97-8B63-30632D0B339E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>5B731B7E-C381-484E-851A-44C46449EC7F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F6D6D079-FA78-4F97-8B63-30632D0B339E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>725D4EB6-4699-4512-8FD4-C147D38C1ED4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>BFCF7D08-2AEC-4503-BECF-B1617FDBC722</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>AED5C394-56E0-4C2F-9BA2-5CB1C57B22CB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F6D6D079-FA78-4F97-8B63-30632D0B339E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>BFCF7D08-2AEC-4503-BECF-B1617FDBC722</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>82072A5E-AF84-435E-ADCF-2DF8876653AA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>DD91A638-D14F-460C-A8DA-ACD5B815BD6F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F6D6D079-FA78-4F97-8B63-30632D0B339E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>F6D6D079-FA78-4F97-8B63-30632D0B339E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9E143F06-6EC6-4AAB-8C82-620F719D2D55</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Franz Greiling</string>
+	<key>description</key>
+	<string>Gives Access to the Trakt API</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Trakt</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>trakt shows</string>
+				<key>runningsubtext</key>
+				<string>Searching Shows...</string>
+				<key>script</key>
+				<string>from workflow import query
+
+print(query("{query}", ['shows']))</string>
+				<key>subtext</key>
+				<string>Searches only the Trakt Show Database</string>
+				<key>title</key>
+				<string>Trakt Show Search</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>5B731B7E-C381-484E-851A-44C46449EC7F</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>F6D6D079-FA78-4F97-8B63-30632D0B339E</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Trakt</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>82072A5E-AF84-435E-ADCF-2DF8876653AA</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Trakt</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>9E143F06-6EC6-4AAB-8C82-620F719D2D55</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>trakt</string>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>from workflow import query
+
+print(query("{query}"))</string>
+				<key>subtext</key>
+				<string>Searches the Trakt Database</string>
+				<key>title</key>
+				<string>Trakt Search</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>AED5C394-56E0-4C2F-9BA2-5CB1C57B22CB</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>trakt episodes</string>
+				<key>runningsubtext</key>
+				<string>Searching Episodes...</string>
+				<key>script</key>
+				<string>from workflow import query
+
+print(query("{query}", ['episodes']))</string>
+				<key>subtext</key>
+				<string>Searches only the Trakt Episode Database</string>
+				<key>title</key>
+				<string>Trakt Episode Search</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>DD91A638-D14F-460C-A8DA-ACD5B815BD6F</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string># -*- coding: utf8 -*-
+from workflow import save_key
+
+print(save_key("{query}"))</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>BFCF7D08-2AEC-4503-BECF-B1617FDBC722</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>trakt apikey</string>
+				<key>subtext</key>
+				<string>Set your Trakt API Key</string>
+				<key>text</key>
+				<string>Trakt apikey</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>725D4EB6-4699-4512-8FD4-C147D38C1ED4</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>trakt movies</string>
+				<key>runningsubtext</key>
+				<string>Searching Movies...</string>
+				<key>script</key>
+				<string>from workflow import query
+
+print(query("{query}", ['movies']))</string>
+				<key>subtext</key>
+				<string>Searches only the Trakt Movie Database</string>
+				<key>title</key>
+				<string>Trakt Movie Search</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>17792379-6334-4A90-BBD0-A412D3F7FF7F</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>17792379-6334-4A90-BBD0-A412D3F7FF7F</key>
+		<dict>
+			<key>ypos</key>
+			<real>110</real>
+		</dict>
+		<key>5B731B7E-C381-484E-851A-44C46449EC7F</key>
+		<dict>
+			<key>ypos</key>
+			<real>210</real>
+		</dict>
+		<key>725D4EB6-4699-4512-8FD4-C147D38C1ED4</key>
+		<dict>
+			<key>ypos</key>
+			<real>470</real>
+		</dict>
+		<key>82072A5E-AF84-435E-ADCF-2DF8876653AA</key>
+		<dict>
+			<key>ypos</key>
+			<real>470</real>
+		</dict>
+		<key>9E143F06-6EC6-4AAB-8C82-620F719D2D55</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>AED5C394-56E0-4C2F-9BA2-5CB1C57B22CB</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>BFCF7D08-2AEC-4503-BECF-B1617FDBC722</key>
+		<dict>
+			<key>ypos</key>
+			<real>470</real>
+		</dict>
+		<key>DD91A638-D14F-460C-A8DA-ACD5B815BD6F</key>
+		<dict>
+			<key>ypos</key>
+			<real>310</real>
+		</dict>
+		<key>F6D6D079-FA78-4F97-8B63-30632D0B339E</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>devignore.de</string>
+</dict>
+</plist>
