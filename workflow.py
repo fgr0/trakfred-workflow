@@ -73,7 +73,8 @@ def search(query, scope, amount=27):
         if image == None:
             image = _DEFAULT_ICON
 
-        fb.addItem(title=item['alfred']['title'],
+        fb.addItem(uid=item['alfred']['id'],
+                title=item['alfred']['title'],
                 subtitle=item['alfred']['subtitle'],
                 autocomplete=item['alfred']['id'],
                 arg=item['alfred']['url'],
