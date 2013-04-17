@@ -34,7 +34,7 @@ def read_key():
                 subtitle="Please add a Trakt API-Key with `trakt apikey [key]`")
 
 
-def search(query, scope, amount=27):
+def search(query, scope, amount=9):
     tr = trakt.Trakt(api_key=read_key())
 
     items = []
@@ -69,9 +69,11 @@ def search(query, scope, amount=27):
     for item in items:
         if 'images' in item['alfred']:
             image = alfred.storage.getLocalIfExists(trakt.get_image_url_by_size(item['alfred']['images']), download=True)
-        else:
+
+        if image == None:
             image = _DEFAULT_ICON
 
+        print(image)
         fb.addItem(title=item['alfred']['title'],
                 subtitle=item['alfred']['subtitle'],
                 autocomplete=item['alfred']['id'],

@@ -54,21 +54,26 @@ def get_image_url_by_size(images, size='small'):
     if 'poster' in images:
         url = images['poster']
         pos = url.rfind('.')
-        return url[:pos] + sizes['poster'][size] + url[pos:]
+        url2 = url[:pos] + sizes['poster'][size] + url[pos:]
     elif 'fanart' in images:
         url = images['fanart']
         pos = url.rfind('.')
-        return url[:pos] + sizes['fanart'][size] + url[pos:]
+        url2 = url[:pos] + sizes['fanart'][size] + url[pos:]
     elif 'banner' in images:
         url = images['banner']
         pos = url.rfind('.')
-        return url[:pos] + sizes['banner'][size] + url[pos:]
+        url2 = url[:pos] + sizes['banner'][size] + url[pos:]
     elif 'episode' in images:
         url = images['episode']
         pos = url.rfind('.')
-        return url[:pos] + sizes['episode'][size] + url[pos:]
+        url2 = url[:pos] + sizes['episode'][size] + url[pos:]
     else:
         return ''
+
+    if url2 == 'http://slurm.trakt.us/images/poster-small-138.jpg':
+        return ''
+    else:
+        return url2
 
 
 def parse_movie(item):
@@ -92,7 +97,7 @@ def parse_movie(item):
 
     if 'year' in item:
         parsed['year'] = str(item['year'])
-        parsed['title'] += ' [' + str(item['year']) + ']'
+        parsed['title'] += ' (' + str(item['year']) + ')'
 
     if 'ratings' in item:
         parsed['rating'] = str(item['ratings']['percentage']) + '%'
@@ -105,7 +110,7 @@ def parse_movie(item):
     if 'images' in item:
         parsed['images'] = item['images']
     
-    parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['genres']]))
+    parsed['subtitle'] = ', '.join(filter(bool, ['Movie', parsed['rating'], parsed['genres']]))
 
     item['alfred'] = parsed
     return item
@@ -145,7 +150,7 @@ def parse_show(item):
     if 'images' in item:
         parsed['images'] = item['images']
 
-    parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['year'], parsed['genres']]))
+    parsed['subtitle'] = ', '.join(filter(bool, ['Show', parsed['rating'], parsed['year'], parsed['genres']]))
 
     item['alfred'] = parsed
     return item
@@ -179,6 +184,7 @@ def parse_episode(episode):
 
         if 'first_aired' in episode['episode']:
             parsed['subtitle'] = ', '.join(filter(bool, [
+                    'Episode',
                     parsed['rating'],
                     parsed['subtitle'],
                     'aired: ' + time.strftime('%d %b %Y', time.localtime(episode['episode']['first_aired'])),
