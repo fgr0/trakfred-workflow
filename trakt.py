@@ -101,6 +101,9 @@ def parse_movie(item):
 
     if 'genres' in item:
         parsed['genres'] = ' '.join(item['genres'])
+
+    if 'images' in item:
+        parsed['images'] = item['images']
     
     parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['genres']]))
 
@@ -138,6 +141,9 @@ def parse_show(item):
 
     if 'genres' in item:
         parsed['genres'] = ' '.join(item['genres'])
+
+    if 'images' in item:
+        parsed['images'] = item['images']
 
     parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['year'], parsed['genres']]))
 

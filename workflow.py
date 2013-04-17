@@ -67,8 +67,8 @@ def search(query, scope, amount=27):
 
     fb = alfred.Feedback()
     for item in items:
-        if 'images' in item:
-            image = alfred.storage.getLocalIfExists(trakt.get_image_url_by_size(item['images']), download=True)
+        if 'images' in item['alfred']:
+            image = alfred.storage.getLocalIfExists(trakt.get_image_url_by_size(item['alfred']['images']), download=True)
         else:
             image = _DEFAULT_ICON
 
