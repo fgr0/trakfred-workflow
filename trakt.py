@@ -52,15 +52,19 @@ def parse_movie(item):
     else:
         parsed['title'] = ''
 
-    if 'tagline' in item:
-        parsed['subtitle'] = item['tagline']
-    elif 'overview' in item:
-        parsed['subtitle'] = item['overview']
-    else:
-        parsed['subtitle'] = ''
-
     if 'year' in item:
+        parsed['year'] = str(item['year'])
         parsed['title'] += ' [' + str(item['year']) + ']'
+
+    if 'ratings' in item:
+        parsed['rating'] = str(item['ratings']['percentage']) + '%'
+    else:
+        parsed['rating'] = ''
+
+    if 'genres' in item:
+        parsed['genres'] = ' '.join(item['genres'])
+
+    parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['genres']]))
 
     item['alfred'] = parsed
     return item
@@ -71,6 +75,8 @@ def parse_show(item):
 
     if 'imdb_id' in item:
         parsed['id'] = item['imdb_id']
+    elif 'tvdb_id' in item:
+        parsed['id'] = 'tvdb' + str(item['tvdb_id'])
     else:
         return None
 
@@ -84,12 +90,18 @@ def parse_show(item):
     else:
         parsed['title'] = ''
 
-    if 'tagline' in item:
-        parsed['subtitle'] = item['tagline']
-    elif 'overview' in item:
-        parsed['subtitle'] = item['overview']
+    if 'year' in item:
+        parsed['year'] = str(item['year'])
+
+    if 'ratings' in item:
+        parsed['rating'] = str(item['ratings']['percentage']) + '%'
     else:
-        parsed['subtitle'] = ''
+        parsed['rating'] = ''
+
+    if 'genres' in item:
+        parsed['genres'] = ' '.join(item['genres'])
+
+    parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['year'], parsed['genres']]))
 
     item['alfred'] = parsed
     return item
@@ -116,8 +128,15 @@ def parse_episode(episode):
         if 'url' in episode['episode']:
             parsed['url'] = episode['episode']['url']
 
+        if 'ratings' in episode['episode']:
+            parsed['rating'] = str(episode['episode']['ratings']['percentage']) + '%'
+        else:
+            parsed['rating']
+
         if 'first_aired' in episode['episode']:
-            parsed['subtitle'] += ', aired: ' + time.strftime('%d %b %Y', time.localtime(episode['episode']['first_aired'])) 
+            parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'],
+                'aired: ' + time.strftime('%d %b %Y', time.localtime(episode['episode']['first_aired'])),
+                parsed['genres']]))
 
         parsed['type'] = 'episode'
         episode['alfred'] = parsed
