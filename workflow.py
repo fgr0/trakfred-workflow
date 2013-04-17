@@ -13,6 +13,8 @@ import alfred
 import trakt
 import os, sys
 
+_DEFAULT_ICON = 'icon.png'
+
 def save_key(key):
     t = trakt.Trakt(key)
     save = t.search_movies('Bier')
@@ -31,6 +33,7 @@ def read_key():
         alfred.exitWithFeedback(title="No Trakt API-Key provided",
                 subtitle="Please add a Trakt API-Key with `trakt apikey [key]`")
 
+
 def search(query, scope):
     tr = trakt.Trakt(api_key=read_key())
 
@@ -38,18 +41,24 @@ def search(query, scope):
 
     if 'movies' in scope:
         results = tr.search_movies(query)
+        tmp = []
         for result in results:
-            items.append(trakt.parse_movie(result))
+            tmp.append(trakt.parse_movie(result))
+        items += tmp[:9]
 
     if 'shows' in scope:
         results = tr.search_shows(query)
+        tmp = []
         for result in results:
-            items.append(trakt.parse_show(result))
+            tmp.append(trakt.parse_show(result))
+        items += tmp[:9]
 
     if 'episodes' in scope:
         results = tr.search_episodes(query)
+        tmp = []
         for result in results:
-            items.append(trakt.parse_episode(result))
+            tmp.append(trakt.parse_episode(result))
+        items += tmp[:9]
 
     items = filter(None, items)
 
@@ -58,10 +67,17 @@ def search(query, scope):
 
     fb = alfred.Feedback()
     for item in items:
+        if 'images' in item:
+            image = alfred.storage.getLocalIfExists(trakt.get_image_url_by_size(item['images']), download=True)
+        else:
+            image = _DEFAULT_ICON
+
         fb.addItem(title=item['alfred']['title'],
                 subtitle=item['alfred']['subtitle'],
                 autocomplete=item['alfred']['id'],
-                arg=item['alfred']['url'])
+                arg=item['alfred']['url'],
+                icon=image)
+
     fb.output()
 
 def query(query, scope=['movies','shows','episodes']):

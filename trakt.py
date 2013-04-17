@@ -32,6 +32,44 @@ class Trakt(object):
             if err.code == 401:
                 return json.load(err)
 
+def get_image_url_by_size(images, size='small'):
+    sizes = {
+        'poster': {
+            'small': '-138',
+            'medium': '-300',
+            'uncompressed': ''},
+        'fanart': {
+            'small': '-218',
+            'medium': '-940',
+            'uncompressed': ''},
+        'episodes': {
+            'small': '-218',
+            'medium': '-218',
+            'uncompressed': ''},
+        'banners': {
+            'small': '',
+            'medium': '',
+            'uncompressed': ''}}
+
+    if 'poster' in images:
+        url = images['poster']
+        pos = url.rfind('.')
+        return url[:pos] + sizes['poster'][size] + url[pos:]
+    elif 'fanart' in images:
+        url = images['fanart']
+        pos = url.rfind('.')
+        return url[:pos] + sizes['fanart'][size] + url[pos:]
+    elif 'banner' in images:
+        url = images['banner']
+        pos = url.rfind('.')
+        return url[:pos] + sizes['banner'][size] + url[pos:]
+    elif 'episode' in images:
+        url = images['episode']
+        pos = url.rfind('.')
+        return url[:pos] + sizes['episode'][size] + url[pos:]
+    else:
+        return ''
+
 
 def parse_movie(item):
     parsed = {}
@@ -63,7 +101,7 @@ def parse_movie(item):
 
     if 'genres' in item:
         parsed['genres'] = ' '.join(item['genres'])
-
+    
     parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'], parsed['genres']]))
 
     item['alfred'] = parsed
@@ -73,7 +111,7 @@ def parse_show(item):
     parsed = {}
     parsed['type'] = 'show'
 
-    if 'imdb_id' in item:
+    if 'imdb_id' in item and item['imdb_id']:
         parsed['id'] = item['imdb_id']
     elif 'tvdb_id' in item:
         parsed['id'] = 'tvdb' + str(item['tvdb_id'])
@@ -134,9 +172,12 @@ def parse_episode(episode):
             parsed['rating']
 
         if 'first_aired' in episode['episode']:
-            parsed['subtitle'] = ', '.join(filter(bool, [parsed['rating'],
-                'aired: ' + time.strftime('%d %b %Y', time.localtime(episode['episode']['first_aired'])),
-                parsed['genres']]))
+            parsed['subtitle'] = ', '.join(filter(bool, [
+                    parsed['rating'],
+                    parsed['subtitle'],
+                    'aired: ' + time.strftime('%d %b %Y', time.localtime(episode['episode']['first_aired'])),
+                    parsed['genres']
+                ]))
 
         parsed['type'] = 'episode'
         episode['alfred'] = parsed
