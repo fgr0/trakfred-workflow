@@ -26,6 +26,7 @@ Open Alfred, type `trakt apikey 0000000` (replace 00000000 with your own API-Key
 * Use Developer-API-Key to enable checkings
 
 ## Version
+* 0.2.1:    Added ability to download and display images next to results
 * 0.2.0:    Rewrite of the Codebase and switch to [JinnLynn's alfred-python][JinnLynn]
 * 0.1.0:    First release
 
