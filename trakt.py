@@ -110,7 +110,7 @@ def parse_movie(item):
     if 'images' in item:
         parsed['images'] = item['images']
     
-    parsed['subtitle'] = ', '.join(filter(bool, ['Movie', parsed['rating'], parsed['genres']]))
+    parsed['subtitle'] = ', '.join(filter(bool, ['[Movie]', parsed['rating'], parsed['genres']]))
 
     item['alfred'] = parsed
     return item
@@ -150,7 +150,7 @@ def parse_show(item):
     if 'images' in item:
         parsed['images'] = item['images']
 
-    parsed['subtitle'] = ', '.join(filter(bool, ['Show', parsed['rating'], parsed['year'], parsed['genres']]))
+    parsed['subtitle'] = ', '.join(filter(bool, ['[Show]', parsed['rating'], parsed['year'], parsed['genres']]))
 
     item['alfred'] = parsed
     return item
@@ -184,7 +184,7 @@ def parse_episode(episode):
 
         if 'first_aired' in episode['episode']:
             parsed['subtitle'] = ', '.join(filter(bool, [
-                    'Episode',
+                    '[Episode]',
                     parsed['rating'],
                     parsed['subtitle'],
                     'aired: ' + time.strftime('%d %b %Y', time.localtime(episode['episode']['first_aired'])),
