@@ -34,7 +34,7 @@ def read_key():
                 subtitle="Please add a Trakt API-Key with `trakt apikey [key]`")
 
 
-def search(query, scope):
+def search(query, scope, amount=27):
     tr = trakt.Trakt(api_key=read_key())
 
     items = []
@@ -44,21 +44,21 @@ def search(query, scope):
         tmp = []
         for result in results:
             tmp.append(trakt.parse_movie(result))
-        items += tmp[:9]
+        items += tmp[:(amount/len(scope))]
 
     if 'shows' in scope:
         results = tr.search_shows(query)
         tmp = []
         for result in results:
             tmp.append(trakt.parse_show(result))
-        items += tmp[:9]
+        items += tmp[:(amount/len(scope))]
 
     if 'episodes' in scope:
         results = tr.search_episodes(query)
         tmp = []
         for result in results:
             tmp.append(trakt.parse_episode(result))
-        items += tmp[:9]
+        items += tmp[:(amount/len(scope))]
 
     items = filter(None, items)
 
