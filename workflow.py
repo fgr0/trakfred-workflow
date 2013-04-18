@@ -35,10 +35,23 @@ def read_key():
 
 
 def search(query, scope, amount=27):
+    items = []
+    full_scope = scope
+
+    # Check Cache
+    cache = alfred.cache.get('search-cache')
+    if cache and cache['query'] == query and cache['scope'] == scope:
+        items = cache['items']
+        scope = []
+    elif cache and cache['query'] == query:
+        print('here')
+        items = cache['items']
+        scope = [x for x in scope if x not in cache['scope']]
+
+    # Create Trakt API key
     tr = trakt.Trakt(api_key=read_key())
 
-    items = []
-
+    # Call API
     if 'movies' in scope:
         results = tr.search_movies(query)
         tmp = []
@@ -65,6 +78,7 @@ def search(query, scope, amount=27):
     if not items:
         alfred.exitWithFeedback(title="Nothing found", subtitle="D'oh! We didn't find any matches for your search!")
 
+    # generating Feedback for Alfred
     fb = alfred.Feedback()
     for item in items:
         if 'images' in item['alfred']:
@@ -82,8 +96,12 @@ def search(query, scope, amount=27):
 
     fb.output()
 
+    # Writing items to cache
+    if not scope == []:
+        alfred.cache.set('search-cache', {'query':query,'scope':full_scope,'items':items}, expire=86400)
+
 def query(query, scope=['movies','shows','episodes']):
     """
     Analyses query Data and Forwards it to appropriate handler
     """
-    return search(query, scope)
+    search(query, scope)
